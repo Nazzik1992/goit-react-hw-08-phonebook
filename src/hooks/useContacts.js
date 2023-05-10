@@ -3,7 +3,7 @@ import {
     getContacts,
     getIsLoading,
     getError,
-} from '../redux/selectors';
+} from '../redux/contacts/selectors';
 const useContacts = () => {
   const contacts = useSelector(getContacts);
   const isLoading = useSelector(getIsLoading);

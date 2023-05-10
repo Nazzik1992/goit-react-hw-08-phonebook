@@ -3,7 +3,7 @@ import AddContact from 'components/AddContact/AddContact';
 import ContactForm from 'components/ContactForm/ContactForm';
 
 
-import { fetchContacts } from 'redux/operations';
+import { fetchContacts } from 'redux/contacts/operations';
 import { useEffect } from 'react';
 import useContacts from 'hooks/useContacts';
 

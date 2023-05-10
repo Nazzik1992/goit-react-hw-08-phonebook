@@ -3,10 +3,10 @@
 import { Button, Box, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-import { nanoid } from 'nanoid';
+
 import { useDispatch, useSelector} from 'react-redux';
-import { addContact } from 'redux/operations';
-import { getContacts } from 'redux/selectors'
+import { addContact } from 'redux/contacts/operations';
+import { getContacts } from 'redux/contacts/selectors'
 import swal from 'sweetalert';
  
 const AddContact = () => {
@@ -23,7 +23,7 @@ const AddContact = () => {
       return;
     }
 
-    dispatcher(addContact({...newContact, id: nanoid()}));
+    dispatcher(addContact(newContact));
 
     return true;
   };
@@ -34,7 +34,7 @@ const AddContact = () => {
       name: form.elements.name.value,
       number: form.elements.phone.value,
     };
-    console.log(newContact);
+    
     addnewContact(contacts, newContact) && form.reset();
   };
 

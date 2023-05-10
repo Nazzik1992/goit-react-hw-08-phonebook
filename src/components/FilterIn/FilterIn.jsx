@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { changeFilter, changeFilterNumber } from '../../redux/filterSlice';
+import { changeFilter, changeFilterNumber } from '../../redux/filter/filterSlice';
 
 import { TextField, TableCell, TableRow} from '@mui/material';
 

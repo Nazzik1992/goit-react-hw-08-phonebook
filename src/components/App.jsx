@@ -2,12 +2,12 @@
 import { lazy, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from '../layout/MainLayout';
-import useAuth from '../hooks/useAuth';
+
 import { useDispatch } from 'react-redux';
 import { refreshUser } from '../redux/auth/operation';
 import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
-import useNotife from '../hooks/useNotife';
+import useAuth from 'hooks/useAuth';
 
 const Contacts = lazy(() => import('../pages/Contacts/Contacts'));
 const Login = lazy(() => import('../pages/Login/Login'));
@@ -15,23 +15,15 @@ const Register = lazy(() => import('../pages/Register/Register'));
 
 const App = () => {
   const dispatch = useDispatch();
-  const { showFailure } = useNotife();
-
-  const { isError, textError } = useAuth();
-
-  useEffect(() => {
-    if (isError) {
-      showFailure(textError);
-    }
-  }, [isError, textError, showFailure]);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-  <>
-
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route
@@ -64,7 +56,7 @@ const App = () => {
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
 
-    </>
+    
   );
 };
 
