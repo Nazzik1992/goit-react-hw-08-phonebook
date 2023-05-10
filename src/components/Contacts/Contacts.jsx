@@ -1,50 +1,45 @@
 
 import PropTypes from 'prop-types';
-import css from './Contacts.module.css'
-import { deleteContact } from 'redux/operations';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts } from 'redux/selectors'
 
-export  function Contacts() {
-  const filterContacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
+import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/operations';
+
+
+//mui
+import { IconButton,TableCell, TableRow} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+;
+
+const Contact = ({ contact }) => {
+  const dispatcher = useDispatch();
+
+  const handlerDelete = () => dispatcher(deleteContact(contact.id));
 
   return (
-    <>
-      <h2>Contacts</h2>
-      <ul>
-      {filterContacts.map(({ id, name, number }) => {
+    <TableRow>
+      <TableCell component="th" scope="row">
+        {contact.name}
+      </TableCell>
 
-          return (
-            <li key={id}
-            className={css.List}>
-              <p>
-                {name}: {number}
-              </p>
-              <button
-              className={css.Btn}
-                type="button"
-                onClick={() => {
-                  const action = deleteContact(id);
-                  console.log(action)
-                  dispatch(deleteContact(id));
-                }}
-              >
-                Delete
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </>
+      <TableCell align="left">{contact.number}</TableCell>
+
+      <TableCell align="left">
+        <IconButton aria-label="delete" color="primary" onClick={handlerDelete}>
+          <DeleteIcon />
+        </IconButton>
+      </TableCell>
+    </TableRow>
   );
-}
-Contacts.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    })
-  ),
 };
+
+Contact.propType = {
+  contact: PropTypes.exact({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+    edit: PropTypes.bool,
+  }).isRequired,
+};
+
+export default Contact;
