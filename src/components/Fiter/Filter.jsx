@@ -1,18 +1,33 @@
-import { useDispatch } from 'react-redux';
-import  { filterContacts } from 'redux/filter/filterSlice';
+/* import { useDispatch } from 'react-redux';
+import { changeFilter } from 'reduxe/sliceFilter';
+import { TextField } from '@mui/material';
 
-export function Filter() {
-  const dispatch = useDispatch();
+const Filter = () => {
+  const dispatcher = useDispatch();
+
+  const handlerChangeFilter = event => {
+    dispatcher(changeFilter(event.currentTarget.value));
+  };
+
   return (
     <>
-      <h2>Find contacts by name</h2>
-      <input
-        type="text"
+      <TextField
+        type="search"
         name="filter"
-        onChange={e => dispatch(filterContacts(e.target.value))}
+        variant="standard"
+        fullWidth
+        label="Find contact by name"
+        onChange={handlerChangeFilter}
+        sx={{
+          maxWidth: 320,
+          mt: '1rem',
+          mb: '1.5rem',
+        }}
       />
     </>
   );
-}
+};
 
+export default Filter;
 
+ */

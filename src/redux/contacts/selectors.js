@@ -6,14 +6,17 @@ export const getIsLoading = state => state.contacts.isLoading;
 
 export const getError = state => state.contacts.error;
 
-export const getStatusFilter = state => state.filters.status;
+export const getFilter = state => state.filter.request;
+export const getFilterNumber = state => state.filter.number;
 
 export const selectContacts = createSelector(
-    [getContacts, getStatusFilter],
+    [getContacts, getFilter, getFilterNumber],
     // Функція перетворювач
-    (contacts, filter) => {
-      return contacts.filter(element =>
-        element.name.toUpperCase().includes(filter.toUpperCase())
+    (contacts, filter, filterNumber) => {
+      return contacts.filter(
+        element =>
+          element.name.toUpperCase().includes(filter.toUpperCase()) &&
+          element.number.includes(filterNumber)
       );
     }
   );
